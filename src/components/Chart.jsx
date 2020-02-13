@@ -9,7 +9,8 @@ import {
   Tooltip
 } from "recharts";
 
-const Chart = ({ sparklineData }) => {
+const Chart = ({ coin, onClick}) => {
+  const sparklineData = coin.sparkline_in_7d.price;
   const formattedData = sparklineData
     .map((price, idx) => {
       if (idx % 6 === 0) {
@@ -27,13 +28,20 @@ const Chart = ({ sparklineData }) => {
     .filter(data => data);
 
   return (
-    <LineChart width={1100} height={300} data={formattedData}>
-      <Line type="monotone" dataKey="value" stroke="#8884d8" />
-      <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-      <XAxis dataKey="date" interval={3} />
-      <YAxis />
-      <Tooltip />
-    </LineChart>
+    <div className="chart__container" key={coin.name} onClick={onClick}>
+      <h2 className="coin__title">{coin.name}</h2>
+      <h4 className="coin__symbol">{coin.symbol}</h4>
+      <div className="coin__logo">
+        <img src={coin.image} height="40" alt={coin.name} />
+      </div>
+      {!onClick && <LineChart width={1100} height={300} data={formattedData}>
+        <Line type="monotone" dataKey="value" stroke="#8884d8" />
+        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+        <XAxis dataKey="date" interval={3} />
+        <YAxis />
+        <Tooltip />
+      </LineChart>}
+    </div>
   );
 };
 
