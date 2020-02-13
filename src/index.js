@@ -8,9 +8,12 @@ import Navbar from "./components/Navbar";
 
 import "./styles.scss";
 import ChartRoute from "./components/ChartRoute";
+import useDarkMode from "./hooks/useDarkMode";
 
 const App = () => {
   const [coinData, setCoinData] = useState([]);
+
+  const [darkMode, setDarkMode] = useDarkMode(false);
 
   useEffect(() => {
     axios
@@ -22,11 +25,11 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <Navbar />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Route exact path="/">
-        <Charts coinData={coinData} />
+        <Charts coinData={coinData} darkMode={darkMode} />
       </Route>
-      <Route path="/:id" render={(props) => <ChartRoute {...props} coinData={coinData} />} />
+      <Route path="/:id" render={(props) => <ChartRoute {...props} coinData={coinData} darkMode={darkMode} />} />
     </div>
   );
 };

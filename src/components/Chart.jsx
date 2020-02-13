@@ -9,7 +9,7 @@ import {
   Tooltip
 } from "recharts";
 
-const Chart = ({ coin, onClick}) => {
+const Chart = ({ coin, onClick, darkMode}) => {
   const sparklineData = coin.sparkline_in_7d.price;
   const formattedData = sparklineData
     .map((price, idx) => {
@@ -35,10 +35,10 @@ const Chart = ({ coin, onClick}) => {
         <img src={coin.image} height="40" alt={coin.name} />
       </div>
       {!onClick && <LineChart width={1100} height={300} data={formattedData}>
-        <Line type="monotone" dataKey="value" stroke="#8884d8" />
+        <Line type="monotone" dataKey="value" stroke={darkMode ? "#fff" : "#8884d8"} />
         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="date" interval={3} />
-        <YAxis />
+        <XAxis dataKey="date" interval={3} stroke={darkMode ? "#fff" : "#8884d8"} />
+        <YAxis stroke={darkMode ? "#fff" : "#8884d8"} />
         <Tooltip />
       </LineChart>}
     </div>

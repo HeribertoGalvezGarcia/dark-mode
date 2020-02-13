@@ -1,15 +1,17 @@
 import React  from 'react';
-import useDarkMode from "../hooks/useDarkMode";
+import {useHistory} from "react-router";
 
-const Navbar = () => {
-  const [darkMode, setDarkMode] = useDarkMode(false);
+const Navbar = ({darkMode, setDarkMode}) => {
+  const history = useHistory();
+
   const toggleMode = e => {
     e.preventDefault();
     setDarkMode(!darkMode);
   };
+
   return (
     <nav className="navbar">
-      <h1>Crypto Tracker</h1>
+      <h1 onClick={() => history.push("/")}>Crypto Tracker</h1>
       <div className="dark-mode__toggle">
         <div
           onClick={toggleMode}
